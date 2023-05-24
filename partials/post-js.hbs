@@ -1,0 +1,38 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.js" integrity="sha512-1lagjLfnC1I0iqH9plHYIUq3vDMfjhZsLy9elfK89RBcpcRcx4l+kRJBSnHh2Mh6kLxRHoObD1M5UTUbgFy6nA==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js" integrity="sha512-/2sZKAsHDmHNoevKR/xsUKe+Bpf692q4tHNQs9VWWz0ujJ9JBM67iFYbIEdfDV9I2BaodgT5MIg/FTUmUv3oyQ==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.10.0/tocbot.min.js"></script>
+<script src="https://unpkg.com/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function (event) {
+  /* Image zoom */
+  mediumZoom(".kg-image-card > img, .kg-gallery-image > img")
+
+  /* Responsive videos */
+  $(".post-content").fitVids();
+
+  /* Gallery layout */
+  var images = document.querySelectorAll('.kg-gallery-image img');
+  images.forEach(function (image) {
+    var container = image.closest('.kg-gallery-image');
+    var width = image.attributes.width.value;
+    var height = image.attributes.height.value;
+    var ratio = width / height;
+    container.style.flex = ratio + ' 1 0%';
+  })
+
+  /* ToC */
+  tocbot.init({
+    tocSelector: '.toc',
+    contentSelector: '.post-content',
+    hasInnerContainers: true,
+    collapseDepth: 6,
+  });
+  let toc = document.getElementsByClassName('toc')[0]
+  if (toc !== undefined && toc.innerHTML == '') {
+    document.getElementsByClassName('table-of-contents')[0].style.display = 'none'
+  }
+});
+
+</script>

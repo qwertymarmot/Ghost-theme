@@ -1,0 +1,69 @@
+{{!< default}}
+
+<div class="main-content">
+
+  {{#page}}
+  <article class="{{post_class}}">
+
+    <div class="post-header">
+
+      <div class="container">
+
+        {{#if feature_image}}
+        <img src="{{img_url feature_image size="m"}}" alt="{{title}}" class="post-image post-image--small" />
+        {{/if}}
+
+        <h1 class="lhtitle font-heading mb1 mt0 fs36">{{title}}</h1>
+
+        {{#if custom_excerpt}}
+        <h2 class="fs24 normal mb2">{{custom_excerpt}}</h2>
+        {{/if}}
+
+        <hr class="line">
+
+      </div>
+
+    </div>
+  {{/page}}
+
+    <div class="container mt4">
+
+      <div class="books">
+        {{#foreach posts}}
+          <a href="{{url}}" title="{{title}}" class="nolink book-card mb3">
+          <div class="book__art">
+            {{#if feature_image}}
+              <img src="{{img_url feature_image size="m"}}" alt="{{title}}" class="book-cover" />
+            {{/if}}
+          </div>
+          <div class="book__details">
+            <h2 class="post-card-title">{{title}}</h3>
+            <div class="post-card-excerpt">
+              {{excerpt}}
+            </div>
+          </div>
+          </a>
+        {{/foreach}}
+      </div>
+
+      <div class="mt3 fs16" style="padding-left: 5px;">
+      {{pagination}}
+      </div>
+
+    </div>
+
+  </article>
+
+</div>
+
+
+{{#contentFor "scripts"}}
+<script>
+Array.from(document.getElementsByClassName('book__title')).forEach(function(el) {
+  let postTitle = el.innerHTML
+  let titleParts = postTitle.split(' - ')
+  el.innerHTML = `${titleParts[0]}<br><span class="color-text">${titleParts[1]}</span>`
+})
+</script>
+  {{> post-js}}
+{{/contentFor}}
